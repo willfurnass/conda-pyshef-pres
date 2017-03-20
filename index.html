@@ -45,6 +45,8 @@
 					{ src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
 				]
 			});
+      // "c/t": flattened slide number / total slides
+      Reveal.configure({ slideNumber: 'c/t' });
 		</script>
 	</body>
 </html>
