@@ -13,7 +13,7 @@ To serve the presention locally:
 
 1. Install Node.js dependencies:
    ```sh
-   $ conda-pyshef-pres
+   $ cd conda-pyshef-pres
    $ npm install
    ```
 
