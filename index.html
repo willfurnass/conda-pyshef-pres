@@ -428,9 +428,33 @@ in your <em>package cache</em> where possible.
 
 </section>
 
+<section>
+<h3>Ok, so what exactly is a package?</h3>
 
+A conda <em>recipe</em> package is a tarball containing a minimum of:
 
+<ul>
+    <li> Build scripts for Windows and for macOS / Linux, which typically contain little more than 
+        <div class="org-src-container">
+        <pre><code class="bash">$PYTHON setup.py install</code></pre>
+    </li>
+    <li> A <code>meta.yml</code> file containing package metadata</li>
+</ul>
+</section>
 
+<section>
+
+<h4>Task</h4>
+
+Visit <a href="https://github.com/conda-forge/feedstocks/tree/master/feedstocks">https://github.com/conda-forge/feedstocks/tree/master/feedstocks</a>
+and compare the build scripts and metadata files of:
+
+<ul>
+    <li><code>joblib</code>: a small Py package </li>
+    <li><code>matplotlib</code>: a large Py package that depends on some non-Py packages </li>
+    <li><code>make</code>: a small C program </li>
+</ul>
+</section>
 
 <section>
 Stuff I haven't covered:
