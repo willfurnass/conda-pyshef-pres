@@ -208,6 +208,43 @@ Python 3.6.0 :: Continuum Analytics, Inc.
 </div>
 </section>
 
+<section>
+<p>Small number of pkgs installed in root env:</p>
+
+<div class="org-src-container">
+<pre><code class="bash">[will@acai ~]$ conda list
+# packages in environment at /home/will/miniconda3:
+#
+cffi                      1.9.1                    py36_0  
+conda                     4.3.11                   py36_0  
+conda-env                 2.6.0                         0  
+cryptography              1.7.1                    py36_0  
+idna                      2.2                      py36_0  
+libffi                    3.2.1                         1  
+openssl                   1.0.2k                        0  
+pip                       9.0.1                    py36_1  
+pyasn1                    0.1.9                    py36_0  
+pycosat                   0.6.1                    py36_1  
+pycparser                 2.17                     py36_0  
+pyopenssl                 16.2.0                   py36_0  
+python                    3.6.0                         0  
+readline                  6.2                           2  
+requests                  2.12.4                   py36_0  
+ruamel_yaml               0.11.14                  py36_1  
+setuptools                27.2.0                   py36_0  
+six                       1.10.0                   py36_0  
+sqlite                    3.13.0                        0  
+tk                        8.5.18                        0  
+wheel                     0.29.0                   py36_0  
+xz                        5.2.2                         1  
+yaml                      0.1.6                         0  
+zlib                      1.2.8                         3  
+</code></pre>
+</div>
+
+<p>NB <code>requests</code> is Python, <code>zlib</code> is compiled shared library!</p>
+
+</section>
 
 
 <section>
