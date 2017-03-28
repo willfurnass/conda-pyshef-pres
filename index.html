@@ -131,6 +131,86 @@
 </section>
 
 <section>
+<h3>Another approach: Conda</h3>
+
+Yet another package manager (groan) <em>but</em>:
+
+<ul>
+    <li> A conda pkg can be pure Py (e.g. PyPI pkg with little extra md) </li>
+    <li> <em>or</em> can be non-Py! </li>
+    <li>Provides <em>environments</em> (like virtualenvs) </li>
+        <ul>
+            <li> Keep system and dev pkgs separate (even compiled libraries) </li>
+            <li> Can do <em>everything</em> as unprivileged user </li>
+            <li> Different pkgs and pkg versions per env </li>
+        </ul>
+</ul>
+</section>
+<section>
+<ul>
+    <li> Binary-only packages </li>
+        <ul>
+            <li> Built for Windows (32b, 64b), macOS, Linux (32b, 64b) and </li>
+            <li> for maj+min Py vers (+ maybe key dependency vers) </li>
+                <ul>
+                    <li> e.g. Binary pkg for Linux 64bit + Py 3.6 + <code>numpy</code> 1.12 </li>
+                </ul>
+        </ul>
+    <li> No reason not to use in Docker! </li>
+</ul>
+</section>
+
+<section>
+<h3>Let's play...</h3>
+
+<ul>
+    <li> Download <strong>Miniconda</strong> installer from <a href="https://repo.continuum.io/miniconda/">https://repo.continuum.io/miniconda/</a></li>
+    <li> Run installer (using e.g. <code>sh miniconda-latest.sh</code> on macOS / Linux)</li>
+    <li> Install into default location (e.g. <code>~/miniconda3</code>) </li>
+    <li> Do not prepend the Miniconda install location to your <code>PATH</code> </li>
+    <li> Windows: do not add Miniconda Python to registry </li>
+</ul>
+</section>
+
+
+<section>
+<h3> Make conda available</h3>
+
+<ul>
+    <li> <strong>Windows</strong>: Start a Miniconda shell from the <em>Start</em> menu. </li>
+    <li> <strong>Linux / macOS</strong>: Ensure <code>conda</code> can be found on your <code>$PATH</code>:
+<div class="org-src-container">
+<pre><code class="bash">export PATH="$HOME/miniconda3/bin:$PATH"</code></pre>
+</div>
+    </li>
+</ul>
+
+Should then be able to run:
+
+<div class="org-src-container">
+<pre><code class="bash">[will@acai ~]$ conda --version
+conda 4.3.13
+</code></pre>
+</div>
+</section>
+
+<section>
+<h3>Where am I? What's going on?</h3>
+
+You are now in the <em>root</em> conda environment, which has its own Python install:
+
+<div class="org-src-container">
+<pre><code class="bash">[will@acai ~]$ which python
+/home/will/miniconda3_pyshef/bin/python
+[will@acai ~]$ python --version
+Python 3.6.0 :: Continuum Analytics, Inc.
+</code></pre>
+</div>
+</section>
+
+
+
+<section>
 <h2>Slide 2</h2>
 <p>Some text</p>
 <div class="org-src-container">
