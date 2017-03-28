@@ -41,8 +41,11 @@
 <section>
 <h2>Outline</h2>
 <ul>
-    <li>Motivation</li>
-    <li>TODO</li>
+    <li>What are the challenges of managing Py and non-Py packages for dev work?</li>
+    <li>Why is this conda thing any different?</li>
+    <li>How can I manipulate conda environments/packages?</li>
+    <li>What <em>is</em> a conda package?</li>
+    <li>How can I make packages available to others?</li>
 </ul>
 </section>
 
@@ -440,10 +443,11 @@ A conda <em>recipe</em> package is a tarball containing a minimum of:
     </li>
     <li> A <code>meta.yml</code> file containing package metadata</li>
 </ul>
+
+Given these, <code>conda build</code> can compile/bundle packages and optionally upload them to a repository.
 </section>
 
 <section>
-
 <h4>Task</h4>
 
 Visit <a href="https://github.com/conda-forge/feedstocks/tree/master/feedstocks">https://github.com/conda-forge/feedstocks/tree/master/feedstocks</a>
@@ -454,20 +458,56 @@ and compare the build scripts and metadata files of:
     <li><code>matplotlib</code>: a large Py package that depends on some non-Py packages </li>
     <li><code>make</code>: a small C program </li>
 </ul>
+
+NB Not going to cover exacty how to build a package here; see the conda docs for info.
+
 </section>
 
 <section>
-Stuff I haven't covered:
+<h3>What is Conda-Forge?</h3>
 
 <ul>
-    <li> <a href="https://conda.io/docs/building/meta-yaml.html?highlight=feature#id2">Features</a> </li>
+    <li>"Community-driven packaging" for Conda</li>
+    <li>Provides a separate <em>channel</em> to the default conda repository</li>
+    <li>Packages built using public Continuous Integration (CI) infrastructure</li>
+    <li>Propose a new recipe via the <a href="https://github.com/conda-forge/staged-recipes">conda-forge/staged-recipes</a> </li>
 </ul>
 </section>
+<section>
+<ul>
+    <li>If CI confirms that your pull request can build (on multiple OSs) then...</li>
+    <li>...a dedicated <em>feedstock</em> repo is created for your recipe... </li>
+    <li>and post-build your packages will be available from the conda-forge channel using e.g. </li>
+</ul>
 
+<div class="org-src-container">
+<pre><code class="bash">conda install -c conda-forge mynewpkg</code></pre>
+</div>
 
+</section>
 
+<section>
+<h3>Challenge</h3>
 
+Create a conda package for Mu (<a href="https://github.com/mu-editor/mu">https://github.com/mu-editor/mu</a>), 
+an IDE for the BBC micro:bit.
+</section>
 
+<section>
+<h3>Summary</h3>
+
+<ul>
+    <li>Conda is a Python-centric but also general-purpose package manager </li>
+    <li>Can separate projects using environments... </li>
+    <li>...can capture the state of an environment... </li>
+    <li>...and can recreate environments defined by others. </li>
+    <li>Create packages for Python and non-Python software, </li>
+    <li>then share your build recipes and packages with others using conda-forge </li>
+</ul>
+
+<blockquote>Thanks for listening!</blockquote>
+
+</section>
 <!-- end of slide content -->
             </div>
         </div>
