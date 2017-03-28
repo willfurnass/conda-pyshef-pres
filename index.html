@@ -13,6 +13,11 @@
         <!-- Theme used for syntax highlighting of code -->
         <link rel="stylesheet" href="lib/css/zenburn.css">
 
+        <!-- left-justification -->
+        <style type="text/css">
+        .reveal .slides { text-align: left; }
+        </style>
+
         <!-- Printing and PDF exports -->
         <script>
             var link = document.createElement( 'link' );
@@ -25,21 +30,125 @@
     <body>
         <div class="reveal">
             <div class="slides">
-                <section>
-                <img src="resources/conda_logo.svg" alt="Conda logo" />
-                <h3>yet another package manager</h3>
-                <a href="https://twitter.com/willfurnass"><i class="fa fa-twitter" aria-hidden="true"></i></a> 
-                <a href="https://github.com/willfurnass"><i class="fa fa-github" aria-hidden="true"></i></a>
-                willfurnass
-                </section>
+<!-- start of slide content -->
+<section>
+<img src="resources/conda_logo.svg" alt="Conda logo" />
+<h3>yet another package manager</h3>
+<a href="https://twitter.com/willfurnass"><i class="fa fa-twitter" aria-hidden="true"></i></a> /
+<a href="https://github.com/willfurnass"><i class="fa fa-github" aria-hidden="true"></i></a> &nbsp;
+@willfurnass
+</section>
 
-                <section>
-                <h2>Slide 2</h2>
-                <p>Some text</p>
-                <p>Some more text</p>
-                </section>
+<section>
+<h2>Outline</h2>
+<ul>
+    <li>Motivation</li>
+    <li>TODO</li>
+</ul>
+</section>
 
-                <section>Slide ?</section>
+
+<section>
+<h2>Assumptions</h2>
+<p> Assumption: you want to work on / use software that has both:</p>
+<ul>
+    <li> Python bits</li>
+    <li> Non-Python bits</li>
+</ul>
+
+<p>e.g.</p>
+
+<ul>
+    <li class="fragment"> use a Py pkg that depends on <code>libxml</code>; </li>
+    <li class="fragment"> use a Py pkg that depends on linear algebra C lib; </li>
+    <li class="fragment"> Mu, the BBC micro:bit IDE: depends on some Qt libraries for the GUI and serial comms. </li>
+</ul>
+</section>
+
+<section>
+<h3>Requirements</h3>
+<p>When working on a Py + non-Py project we want:</p>
+
+<ul>
+    <li class="fragment"> To be able to use Py and non-Py pkgs and pkg versions you want, regardless of OS pkgs; </li>
+    <li class="fragment"> Separation / independence from system packages to ensure/test portability; </li>
+    <li class="fragment"> To work as an unprivileged user. </li>
+    <li class="fragment"> For us and other users not to be tied to a given OS/environment. </li>
+</ul>
+</section>
+
+<section>
+<h4> Install everything as root using OS package manager?</h4>
+<ul class="fragment">
+    <li> - Can only have one version of each pkg for all projects (no sandboxing)  </li>
+    <li> - Limited to older versions of pkgs </li>
+    <li> - Limited selection of pkgs </li>
+    <li> - May not be easy/possible to switch to Py3 (e.g. on Centos 7) </li>
+</ul>
+</section>
+
+<section>
+<h4>Install Py stuff as root using pip?</h4>
+<ul class="fragment">
+    <li> + Newer Py pkgs </li>
+</ul>
+<ul class="fragment">
+    <li> - Now using two pkg managers </li>
+        <ul> 
+            <li> - Conflicts! </li>
+            <li> - May break your OS as many \*nix OS utilities written in Py </li>
+            <li> - How to keep Py and non-Py deps in sync? </li>
+        </ul>
+    <li> - No sandboxing </li>
+    <li> - Can only have one version of each package for all projects </li>
+    <li> - Slow to install if no wheel available and may need a compiler (urgh) </li>
+</ul>
+</section>
+
+<section>
+<h4>Install Py pkgs in virtualenv?</h4>
+<ul class="fragment">
+    <li> + Newer Py pkgs  </li>
+    <li> + Safer as no longer root  </li>
+    <li> + Sandboxing of python pkgs - can have different vers per venv  </li>
+</ul>
+<ul class="fragment">
+    <li> - Still using two pkg managers (OS for non-Py stuff) </li>
+        <ul> 
+            <li> + No conflicts and won't break your OS <em>but</em></li>
+            <li> - How to keep Py and non-Py deps in sync? </li>
+        </ul>
+    <li> - Slow to install if no wheel available and may need a compiler (urgh) </li>
+</ul>
+</section>
+
+<section>
+<h4>Docker / Singularity?</h4>
+<ul class="fragment">
+    <li> + Py and non-py pkgs contained </li>
+    <li> - Still using multiple packages internally if want latest Py pkgs </li>
+    <li> - How to track / maintain what is compatible? </li>
+</section>
+
+<section>
+<h2>Slide 2</h2>
+<p>Some text</p>
+<div class="org-src-container">
+<pre><code class="c++">int i = 0;</code></pre>
+</div>
+<p>Some more text</p>
+</section>
+
+<section>Slide ?
+<pre><code data-trim data-noescape>
+(def lazy-fib
+  (concat
+   [0 1]
+   <mark>((fn rfib [a b]</mark>
+        (lazy-cons (+ a b) (rfib b (+ a b)))) 0 1)))
+</code></pre>
+</section>
+<!-- end of slide content -->
             </div>
         </div>
 
