@@ -34,9 +34,8 @@
 <section>
 <img src="resources/conda_logo.svg" alt="Conda logo" />
 <h3>yet another package manager</h3>
-<a href="https://twitter.com/willfurnass"><i class="fa fa-twitter" aria-hidden="true"></i></a> /
-<a href="https://github.com/willfurnass"><i class="fa fa-github" aria-hidden="true"></i></a> &nbsp;
-@willfurnass
+<p><a href="https://twitter.com/willfurnass"><i class="fa fa-twitter" aria-hidden="true"></i></a> @willfurnass</p>
+<p><a href="https://willfurnass.github.io/conda-pyshef-pres">https://willfurnass.github.io/conda-pyshef-pres</a></p>
 </section>
 
 <section>
@@ -201,7 +200,7 @@ You are now in the <em>root</em> conda environment, which has its own Python ins
 
 <div class="org-src-container">
 <pre><code class="bash">[will@acai ~]$ which python
-/home/will/miniconda3_pyshef/bin/python
+/home/will/miniconda3/bin/python
 [will@acai ~]$ python --version
 Python 3.6.0 :: Continuum Analytics, Inc.
 </code></pre>
@@ -209,6 +208,8 @@ Python 3.6.0 :: Continuum Analytics, Inc.
 </section>
 
 <section>
+<h3>Listing packages in a conda env</h3>
+
 <p>Small number of pkgs installed in root env:</p>
 
 <div class="org-src-container">
@@ -243,28 +244,206 @@ zlib                      1.2.8                         3
 </div>
 
 <p>NB <code>requests</code> is Python, <code>zlib</code> is compiled shared library!</p>
+</section>
+
+<section>
+<h3>Creating a new environment</h3>
+
+<p>Best to create a new environment (distinct from the root) per project.
+Need a name and some pkgs (optionally with version nums and build nums):</p>
+
+<div class="org-src-container">
+<pre><code class="bash">[will@acai ~]$ conda create --name room101 python=3.5 beautifulsoup4
+Fetching package metadata ...........
+Solving package specifications: .
+
+Package plan for installation in environment /home/will/miniconda3/envs/room101:
+
+The following NEW packages will be INSTALLED:
+
+    beautifulsoup4: 4.5.3-py35_0 
+    openssl:        1.0.2k-1     
+    pip:            9.0.1-py35_1 
+    python:         3.5.3-1      
+    readline:       6.2-2        
+    setuptools:     27.2.0-py35_0
+    sqlite:         3.13.0-0     
+    tk:             8.5.18-0     
+    wheel:          0.29.0-py35_0
+    xz:             5.2.2-1      
+    zlib:           1.2.8-3      
+...
+</code></pre>
+</div>
+</section>
+
+<section>
+<h3><em>Activate</em> the environment...</h3>
+
+...to start using it:
+
+<div class="org-src-container">
+<pre><code class="bash">source activate room101
+</code></pre>
+</div>
+(omit '<code>source</code>' on Windows)
+
+<hr />
+
+Your prompt now includes the name of your active environment:
+
+<div class="org-src-container">
+<pre><code class="bash">(room101) [will@acai ~]$ which python
+/home/will/miniconda3/envs/room101/bin/python
+(room101) [will@acai ~]$ python --version
+Python 3.5.3 :: Continuum Analytics, Inc.
+</code></pre>
+</div>
+</section>
+
+<section>
+<h3>Installing and removing packages</h3>
+
+Try: 
+
+<ul>
+    <li>installing the <code>numpy</code> package using <code>conda install PKGNAME</code> </li>
+        <ul>
+            <li>What is the dependency that also gets installed?
+        </ul>
+    <li>removing the <code>beautifulsoup4</code> package using <code>conda remove PKGNAME</code> </li>
+</ul>
+
+Confirm the effect using <code>conda list</code>.
+
+<hr />
+
+We can also install packages using <strong>pip</strong>:
+
+<ul>
+    <li>Try installing the <code>mock</code> testing tool using pip then re-run <code>conda list</code>
+</ul>
+</section>
+
+<section>
+<h3>Less Py-centric environments</h3>
+
+If conda pkgs don't have to be Py pkgs then we can use conda as a general purpose package manager e.g.
+
+<div class="org-src-container">
+<pre><code class="bash">
+(room101) [will@acai ~]$ conda create --name piratical_fun r-base r-yaml
+...
+(room101) [will@acai ~]$ source activate piratical_fun
+...
+(piratical_fun) [will@acai ~]$ which R
+/home/will/miniconda3/envs/piratical_fun/bin/R
+(piratical_fun) [will@acai ~]$ R
+...
+R version 3.3.2 (2016-10-31) -- "Sincere Pumpkin Patch"
+...
+> print("Arr!")
+[1] "Arr!"
+</code></pre>
+</div>
+</section>
+
+<section>
+
+<h3>Deactivating and deleting environments</h3>
+
+<blockquote><p>"But we're supposed to be talking about Python!"</p></blockquote>
+
+Okay, let's deactivate and delete our R environment:
+<div class="org-src-container">
+<pre><code class="bash">(piratical_fun) [will@acai ~]$ source deactivate
+[will@acai ~]$ conda env remove --name piratical_fun
+</code></pre>
+</div>
+</section>
+<section>
+NB as our environment is entirely contained within a directory we could just delete that instead:
+<div class="org-src-container">
+<pre><code class="bash">[will@acai ~]$ rm -rf /home/will/miniconda3/envs/piratical_fun
+</code></pre>
+</div>
+</section>
+
+<section>
+<h3>Auditing and reinstantiating environments</h3>
+
+What if you want to share your environment with a friend?
+
+Save the env state to a file:
+
+<div class="org-src-container">
+<pre><code class="bash">
+[will@acai ~]$ source activate room101
+(room101) [will@acai ~]$ conda env export > environment.yml
+</code></pre>
+</div>
+
+<div class="fragment">
+Then here or elsewhere:
+
+<div class="org-src-container">
+<pre><code class="bash">
+[will@thecloud ~]$ conda env create --name my-room101
+</code></pre>
+</div>
+</div>
+</section>
+
+<section>
+These environment files are written in the YAML markup language.
+
+They contain:
+<ul>
+    <li>The installed conda packages (name, version, build) </li>
+    <li>The installed pip packages (name, version) </li>
+    <li>The used conda <em>channels</em> </li>
+</ul>
+
+<blockquote class="fragment">
+WARNING: the list of packages is not just those explicitly installed.
+It can include OS-specific dependency packages so (unedited) environment files
+may not be as portable as you'd hope.
+</blockquote>
+</section>
+
+<section>
+Task: Use <code>conda env export</code> to create and inspect an environment file 
+for the <code>room101 environment</code>.
+
+<hr />
+You can also clone environments locally:
+
+<div class="org-src-container">
+<pre><code class="bash">$ conda create --name room102 --clone room101
+</code></pre>
+</div>
+
+NB creating/cloning environments is cheap as conda (hard or soft) links to existing package installs 
+in your <em>package cache</em> where possible.
 
 </section>
+
+
+
 
 
 <section>
-<h2>Slide 2</h2>
-<p>Some text</p>
-<div class="org-src-container">
-<pre><code class="c++">int i = 0;</code></pre>
-</div>
-<p>Some more text</p>
+Stuff I haven't covered:
+
+<ul>
+    <li> <a href="https://conda.io/docs/building/meta-yaml.html?highlight=feature#id2">Features</a> </li>
+</ul>
 </section>
 
-<section>Slide ?
-<pre><code data-trim data-noescape>
-(def lazy-fib
-  (concat
-   [0 1]
-   <mark>((fn rfib [a b]</mark>
-        (lazy-cons (+ a b) (rfib b (+ a b)))) 0 1)))
-</code></pre>
-</section>
+
+
+
+
 <!-- end of slide content -->
             </div>
         </div>
